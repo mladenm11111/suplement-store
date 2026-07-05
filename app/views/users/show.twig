@@ -1,0 +1,17 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<h1 class="mb-4">Detalji korisnika</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <p><strong>ID:</strong> {{ user.id }}</p>
+        <p><strong>Korisničko ime:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Rola:</strong> {{ user.role }}</p>
+        <p><strong>Datum registracije:</strong> {{ user.created_at }}</p>
+    </div>
+</div>
+
+<a href="{{ base_url }}users" class="btn btn-secondary">Nazad</a>
+{% endblock %}

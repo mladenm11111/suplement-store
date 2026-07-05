@@ -1,0 +1,30 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<h1 class="mb-4">Detalji poruke</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        {% if session.role == 'admin' or session.role == 'manager' %}
+            <p><strong>Korisnik:</strong> {{ message.username }} ({{ message.email }})</p>
+        {% endif %}
+        <p><strong>Naslov:</strong> {{ message.subject }}</p>
+        <p><strong>Datum:</strong> {{ message.created_at }}</p>
+        <p><strong>Poruka:</strong></p>
+        <p>{{ message.message }}</p>
+    </div>
+</div>
+
+{% if message.response %}
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">Odgovor</div>
+        <div class="card-body">
+            <p>{{ message.response }}</p>
+        </div>
+    </div>
+{% else %}
+    <p class="text-muted">Još uvek nema odgovora.</p>
+{% endif %}
+
+<a href="{{ base_url }}messages" class="btn btn-secondary">Nazad</a>
+{% endblock %}

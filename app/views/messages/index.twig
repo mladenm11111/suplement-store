@@ -1,0 +1,54 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<h1 class="mb-4">Poruke</h1>
+
+{% if session.role == 'user' %}
+    <a href="{{ base_url }}message/send" class="btn btn-success mb-3">Pošalji poruku</a>
+{% endif %}
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            {% if session.role == 'admin' or session.role == 'manager' %}
+                <th>Korisnik</th>
+            {% endif %}
+            <th>Naslov</th>
+            <th>Datum</th>
+            <th>Status</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message in messages %}
+        <tr>
+            <td>{{ message.id }}</td>
+            {% if session.role == 'admin' or session.role == 'manager' %}
+                <td>{{ message.username }}</td>
+            {% endif %}
+            <td>{{ message.subject }}</td>
+            <td>{{ message.created_at }}</td>
+            <td>
+                {% if message.response %}
+                    <span class="badge bg-success">Odgovoreno</span>
+                {% else %}
+                    <span class="badge bg-warning">Na čekanju</span>
+                {% endif %}
+            </td>
+            <td class="d-flex gap-2">
+                <a href="{{ base_url }}message/id/{{ message.id }}" class="btn btn-info btn-sm">Detalji</a>
+                {% if session.role == 'admin' or session.role == 'manager' %}
+                    <a href="{{ base_url }}message/reply/{{ message.id }}" class="btn btn-warning btn-sm">Odgovori</a>
+                    <form method="POST" action="{{ base_url }}message/delete/{{ message.id }}" onsubmit="return confirm('Da li ste sigurni?')">
+                        <button type="submit" class="btn btn-danger btn-sm">Obriši</button>
+                    </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% else %}
+            <tr><td colspan="6">Nema poruka.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
