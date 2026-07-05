@@ -1,0 +1,54 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="mb-4">Dodaj proizvod</h1>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">Naziv:</label>
+                <input type="text" name="name" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Opis:</label>
+                <textarea name="description" class="form-control" rows="4"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Cena (RSD):</label>
+                <input type="number" name="price" class="form-control" step="0.01">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Količina na stanju:</label>
+                <input type="number" name="stock" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Kategorija:</label>
+                <select name="category_id" class="form-select">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Brend:</label>
+                <select name="brand_id" class="form-select">
+                    {% for brand in brands %}
+                        <option value="{{ brand.id }}">{{ brand.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Slika:</label>
+                <input type="file" name="image" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Dodaj</button>
+            <a href="{{ base_url }}products" class="btn btn-secondary ms-2">Otkaži</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

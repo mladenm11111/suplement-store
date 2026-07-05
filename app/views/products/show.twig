@@ -1,0 +1,27 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        {% if product.image %}
+            <img src="{{ base_url }}uploads/{{ product.image }}" class="img-fluid rounded">
+        {% else %}
+            <img src="https://placehold.co/400x400?text=Nema+slike" class="img-fluid rounded">
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        <h1>{{ product.name }}</h1>
+        <p class="text-muted">{{ product.category_name }} | {{ product.brand_name }}</p>
+        <p>{{ product.description }}</p>
+        <h3>{{ product.price }} RSD</h3>
+        <p>Na stanju: {{ product.stock }}</p>
+        {% if session.role == 'user' %}
+            <a href="{{ base_url }}cart/add/{{ product.id }}" class="btn btn-primary">Dodaj u korpu</a>
+        {% endif %}
+        {% if session.role == 'admin' %}
+            <a href="{{ base_url }}product/update/{{ product.id }}" class="btn btn-warning">Izmeni</a>
+        {% endif %}
+        <a href="{{ base_url }}products" class="btn btn-secondary">Nazad</a>
+    </div>
+</div>
+{% endblock %}

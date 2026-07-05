@@ -1,5 +1,87 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-<h1>Dobrodošli u Suplement Store</h1>
+<h1 class="mb-4">Proizvodi</h1>
+
+<form method="GET" action="{{ base_url }}products" class="mb-4">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <input type="text" name="search" class="form-control" placeholder="Pretraži proizvode..." value="{{ keyword }}">
+        </div>
+        <div class="col-md-3">
+            <select name="category_id" class="form-select">
+                <option value="">Sve kategorije</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category_id == category.id %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select name="brand_id" class="form-select">
+                <option value="">Svi brendovi</option>
+                {% for brand in brands %}
+                    <option value="{{ brand.id }}" {% if brand_id == brand.id %}selected{% endif %}>
+                        {{ brand.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Pretraži</button>
+        </div>
+    </div>
+</form>
+
+{% if session.role == 'admin' %}
+    <a href="{{ base_url }}product/add" class="btn btn-success mb-3">Dodaj proizvod</a>
+{% endif %}
+
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            {% if product.image %}
+                <img src="{{ base_url }}uploads/{{ product.image }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+            {% else %}
+                <img src="https://placehold.co/400x200?text=Nema+slike" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text text-muted">{{ product.category_name }} | {{ product.brand_name }}</p>
+                <p class="card-text">{{ product.description|slice(0, 100) }}...</p>
+                <p class="card-text"><strong>{{ product.price }} RSD</strong></p>
+                <p class="card-text">Na stanju: {{ product.stock }}</p>
+            </div>
+            <div class="card-footer d-flex gap-2">
+                <a href="{{ base_url }}product/id/{{ product.id }}" class="btn btn-info btn-sm">Detalji</a>
+                {% if session.role == 'admin' %}
+                    <a href="{{ base_url }}product/update/{{ product.id }}" class="btn btn-warning btn-sm">Izmeni</a>
+                    <form method="POST" action="{{ base_url }}product/delete/{{ product.id }}" onsubmit="return confirm('Da li ste sigurni?')">
+                        <button type="submit" class="btn btn-danger btn-sm">Obriši</button>
+                    </form>
+                {% endif %}
+                {% if session.role == 'user' %}
+                    <a href="{{ base_url }}cart/add/{{ product.id }}" class="btn btn-primary btn-sm">Dodaj u korpu</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <p>Nema pronađenih proizvoda.</p>
+    {% endfor %}
+</div>
+
+{% if totalPages > 1 %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% for i in 1..totalPages %}
+            <li class="page-item {% if i == page %}active{% endif %}">
+                <a class="page-link" href="{{ base_url }}products?search={{ keyword }}&category_id={{ category_id }}&brand_id={{ brand_id }}&page={{ i }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
+{% endif %}
 {% endblock %}
