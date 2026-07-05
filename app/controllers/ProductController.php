@@ -79,6 +79,7 @@ class ProductController extends Controller
 
                 $productModel = $this->loadModel('Product');
                 $productModel->addProduct($name, $description, $price, $stock, $image, $category_id, $brand_id);
+                $this->log('Admin dodao novi proizvod: ' . $name);
                 header('Location: ' . BASE_URL . 'products');
                 exit;
             }

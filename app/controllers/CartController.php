@@ -88,6 +88,7 @@ class CartController extends Controller
 
         $cartModel->clearCart();
 
+        $this->log('Korisnik kreirao narudžbinu #' . $order_id);
         header('Location: ' . BASE_URL . 'orders');
         exit;
     }

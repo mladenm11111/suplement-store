@@ -91,4 +91,12 @@ class Controller
             exit;
         }
     }
+
+    protected function log($action)
+    {
+        $user = isset($_SESSION['username']) ? $_SESSION['username'] : 'guest';
+        $date = date('Y-m-d H:i:s');
+        $logMessage = "[{$date}] [{$user}] {$action}" . PHP_EOL;
+        file_put_contents('../logs/actions.log', $logMessage, FILE_APPEND);
+    }
 }
