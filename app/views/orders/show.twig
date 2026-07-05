@@ -1,0 +1,40 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<h1 class="mb-4">Detalji narudžbine #{{ order.id }}</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        {% if session.role == 'admin' or session.role == 'manager' %}
+            <p><strong>Korisnik:</strong> {{ order.username }} ({{ order.email }})</p>
+        {% endif %}
+        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p><strong>Datum:</strong> {{ order.created_at }}</p>
+        <p><strong>Ukupno:</strong> {{ order.total_price }} RSD</p>
+    </div>
+</div>
+
+<h3>Stavke narudžbine</h3>
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Proizvod</th>
+            <th>Cena</th>
+            <th>Količina</th>
+            <th>Ukupno</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.product_name }}</td>
+            <td>{{ item.price }} RSD</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price * item.quantity }} RSD</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ base_url }}orders" class="btn btn-secondary">Nazad</a>
+{% endblock %}
