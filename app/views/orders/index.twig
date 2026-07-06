@@ -1,62 +1,87 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-<h1 class="mb-4">Narudžbine</h1>
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-shopping-bag me-3"></i>Narudžbine</h1>
+    </div>
+</div>
 
-<table class="table table-bordered table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            {% if session.role == 'admin' or session.role == 'manager' %}
-                <th>Korisnik</th>
-            {% endif %}
-            <th>Ukupno</th>
-            <th>Status</th>
-            <th>Datum</th>
-            <th>Akcije</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for order in orders %}
-        <tr>
-            <td>{{ order.id }}</td>
-            {% if session.role == 'admin' or session.role == 'manager' %}
-                <td>{{ order.username }}</td>
-            {% endif %}
-            <td>{{ order.total_price }} RSD</td>
-            <td>
-                <span class="badge 
-                    {% if order.status == 'pending' %}bg-warning
-                    {% elseif order.status == 'processing' %}bg-info
-                    {% elseif order.status == 'completed' %}bg-success
-                    {% else %}bg-danger{% endif %}">
-                    {{ order.status }}
-                </span>
-            </td>
-            <td>{{ order.created_at }}</td>
-            <td class="d-flex gap-2">
-                <a href="{{ base_url }}order/id/{{ order.id }}" class="btn btn-info btn-sm">Detalji</a>
-                {% if session.role == 'admin' or session.role == 'manager' %}
-                    <form method="POST" action="{{ base_url }}order/update/{{ order.id }}">
-                        <select name="status" class="form-select form-select-sm">
-                            <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Pending</option>
-                            <option value="processing" {% if order.status == 'processing' %}selected{% endif %}>Processing</option>
-                            <option value="completed" {% if order.status == 'completed' %}selected{% endif %}>Completed</option>
-                            <option value="cancelled" {% if order.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
-                        </select>
-                        <button type="submit" class="btn btn-warning btn-sm mt-1">Ažuriraj</button>
-                    </form>
-                {% endif %}
-                {% if session.role == 'admin' %}
-                    <form method="POST" action="{{ base_url }}order/delete/{{ order.id }}" onsubmit="return confirm('Da li ste sigurni?')">
-                        <button type="submit" class="btn btn-danger btn-sm">Obriši</button>
-                    </form>
-                {% endif %}
-            </td>
-        </tr>
-        {% else %}
-            <tr><td colspan="6">Nema narudžbina.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    {% if session.role == 'admin' or session.role == 'manager' %}
+                        <th>Korisnik</th>
+                    {% endif %}
+                    <th>Ukupno</th>
+                    <th>Status</th>
+                    <th>Datum</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td><strong>#{{ order.id }}</strong></td>
+                    {% if session.role == 'admin' or session.role == 'manager' %}
+                        <td><i class="fas fa-user me-1"></i>{{ order.username }}</td>
+                    {% endif %}
+                    <td><strong class="text-warning">{{ order.total_price }} RSD</strong></td>
+                    <td>
+                        <span class="badge 
+                            {% if order.status == 'pending' %}bg-warning text-dark
+                            {% elseif order.status == 'processing' %}bg-info
+                            {% elseif order.status == 'completed' %}bg-success
+                            {% else %}bg-danger{% endif %}">
+                            {% if order.status == 'pending' %}<i class="fas fa-clock me-1"></i>{% endif %}
+                            {% if order.status == 'processing' %}<i class="fas fa-spinner me-1"></i>{% endif %}
+                            {% if order.status == 'completed' %}<i class="fas fa-check me-1"></i>{% endif %}
+                            {% if order.status == 'cancelled' %}<i class="fas fa-times me-1"></i>{% endif %}
+                            {{ order.status }}
+                        </span>
+                    </td>
+                    <td><i class="fas fa-calendar me-1"></i>{{ order.created_at }}</td>
+                    <td>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <a href="{{ base_url }}order/id/{{ order.id }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye me-1"></i>Detalji
+                            </a>
+                            {% if session.role == 'admin' or session.role == 'manager' %}
+                                <form method="POST" action="{{ base_url }}order/update/{{ order.id }}" class="d-flex gap-1">
+                                    <select name="status" class="form-select form-select-sm">
+                                        <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Pending</option>
+                                        <option value="processing" {% if order.status == 'processing' %}selected{% endif %}>Processing</option>
+                                        <option value="completed" {% if order.status == 'completed' %}selected{% endif %}>Completed</option>
+                                        <option value="cancelled" {% if order.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                            {% if session.role == 'admin' %}
+                                <form method="POST" action="{{ base_url }}order/delete/{{ order.id }}" onsubmit="return confirm('Da li ste sigurni?')">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5">
+                            <i class="fas fa-shopping-bag" style="font-size: 3rem; color: #ddd;"></i>
+                            <p class="mt-2 text-muted">Nema narudžbina.</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

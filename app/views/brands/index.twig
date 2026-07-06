@@ -1,37 +1,56 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-<h1 class="mb-4">Brendovi</h1>
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-award me-3"></i>Brendovi</h1>
+    </div>
+</div>
 
-<a href="{{ base_url }}brand/add" class="btn btn-success mb-3">Dodaj brend</a>
+<div class="container">
+    <a href="{{ base_url }}brand/add" class="btn btn-success mb-4">
+        <i class="fas fa-plus me-2"></i>Dodaj brend
+    </a>
 
-<table class="table table-bordered table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Naziv</th>
-            <th>Opis</th>
-            <th colspan="2" class="text-center">Akcije</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for brand in brands %}
-        <tr>
-            <td>{{ brand.id }}</td>
-            <td>{{ brand.name }}</td>
-            <td>{{ brand.description }}</td>
-            <td>
-                <a href="{{ base_url }}brand/update/{{ brand.id }}" class="btn btn-warning btn-sm">Izmeni</a>
-            </td>
-            <td>
-                <form method="POST" action="{{ base_url }}brand/delete/{{ brand.id }}" onsubmit="return confirm('Da li ste sigurni?')">
-                    <button type="submit" class="btn btn-danger btn-sm">Obriši</button>
-                </form>
-            </td>
-        </tr>
-        {% else %}
-            <tr><td colspan="5">Nema brendova.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Naziv</th>
+                    <th>Opis</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for brand in brands %}
+                <tr>
+                    <td><strong>#{{ brand.id }}</strong></td>
+                    <td><i class="fas fa-award me-2"></i>{{ brand.name }}</td>
+                    <td>{{ brand.description }}</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="{{ base_url }}brand/update/{{ brand.id }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit me-1"></i>Izmeni
+                            </a>
+                            <form method="POST" action="{{ base_url }}brand/delete/{{ brand.id }}" onsubmit="return confirm('Da li ste sigurni?')">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5">
+                            <i class="fas fa-award" style="font-size: 3rem; color: #ddd;"></i>
+                            <p class="mt-2 text-muted">Nema brendova.</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

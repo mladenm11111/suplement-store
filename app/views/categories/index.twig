@@ -1,37 +1,56 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-<h1 class="mb-4">Kategorije</h1>
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-tags me-3"></i>Kategorije</h1>
+    </div>
+</div>
 
-<a href="{{ base_url }}category/add" class="btn btn-success mb-3">Dodaj kategoriju</a>
+<div class="container">
+    <a href="{{ base_url }}category/add" class="btn btn-success mb-4">
+        <i class="fas fa-plus me-2"></i>Dodaj kategoriju
+    </a>
 
-<table class="table table-bordered table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Naziv</th>
-            <th>Opis</th>
-            <th colspan="2" class="text-center">Akcije</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for category in categories %}
-        <tr>
-            <td>{{ category.id }}</td>
-            <td>{{ category.name }}</td>
-            <td>{{ category.description }}</td>
-            <td>
-                <a href="{{ base_url }}category/update/{{ category.id }}" class="btn btn-warning btn-sm">Izmeni</a>
-            </td>
-            <td>
-                <form method="POST" action="{{ base_url }}category/delete/{{ category.id }}" onsubmit="return confirm('Da li ste sigurni?')">
-                    <button type="submit" class="btn btn-danger btn-sm">Obriši</button>
-                </form>
-            </td>
-        </tr>
-        {% else %}
-            <tr><td colspan="5">Nema kategorija.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Naziv</th>
+                    <th>Opis</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td><strong>#{{ category.id }}</strong></td>
+                    <td><i class="fas fa-tag me-2"></i>{{ category.name }}</td>
+                    <td>{{ category.description }}</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="{{ base_url }}category/update/{{ category.id }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit me-1"></i>Izmeni
+                            </a>
+                            <form method="POST" action="{{ base_url }}category/delete/{{ category.id }}" onsubmit="return confirm('Da li ste sigurni?')">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5">
+                            <i class="fas fa-tags" style="font-size: 3rem; color: #ddd;"></i>
+                            <p class="mt-2 text-muted">Nema kategorija.</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

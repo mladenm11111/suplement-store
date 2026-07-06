@@ -3,46 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>{{ title }} | Suplement Store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b00;
+            --primary-dark: #cc5500;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .navbar-brand {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: white !important;
+            letter-spacing: 1px;
+        }
+
+        .navbar-brand span {
+            color: var(--primary);
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.85) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            background: rgba(255,107,0,0.2);
+        }
+
+        .nav-link.logout {
+            color: var(--primary) !important;
+            border: 1px solid var(--primary);
+        }
+
+        .nav-link.logout:hover {
+            background: var(--primary);
+            color: white !important;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: white;
+            padding: 5rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            border-color: var(--primary);
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,0,0.3);
+        }
+
+        .btn-success {
+            background: #28a745;
+            border-color: #28a745;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40,167,69,0.3);
+        }
+
+        /* KARTICE */
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-img-top {
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .card-footer {
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            padding: 1rem;
+        }
+
+        /* TABELE */
+        .table {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+
+        .table thead th {
+            background: var(--dark);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 1rem;
+        }
+
+        .table tbody td {
+            padding: 0.9rem 1rem;
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(255,107,0,0.05);
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: white;
+            padding: 2.5rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-weight: 800;
+            margin: 0;
+        }
+
+        /* FORME */
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            padding: 0.7rem 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,107,0,0.15);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #444;
+        }
+
+        /* FOOTER */
+        footer {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 0 1.5rem;
+            margin-top: 5rem;
+        }
+
+        footer h5 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        footer .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* BADGE */
+        .badge {
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        /* PRICE TAG */
+        .price-tag {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="{{ base_url }}">Suplement Store</a>
-            <div class="navbar-nav ms-auto">
-                {% if session.user_id %}
-                    {% if session.role == 'admin' %}
-                        <a class="nav-link" href="{{ base_url }}products">Proizvodi</a>
-                        <a class="nav-link" href="{{ base_url }}categories">Kategorije</a>
-                        <a class="nav-link" href="{{ base_url }}brands">Brendovi</a>
-                        <a class="nav-link" href="{{ base_url }}users">Korisnici</a>
-                        <a class="nav-link" href="{{ base_url }}orders">Narudžbine</a>
-                        <a class="nav-link" href="{{ base_url }}reports">Izveštaji</a>
-                    {% elseif session.role == 'manager' %}
-                        <a class="nav-link" href="{{ base_url }}products">Proizvodi</a>
-                        <a class="nav-link" href="{{ base_url }}orders">Narudžbine</a>
-                        <a class="nav-link" href="{{ base_url }}users">Korisnici</a>
-                        <a class="nav-link" href="{{ base_url }}messages">Poruke</a>
+            <a class="navbar-brand" href="{{ base_url }}">
+                <i class="fas fa-dumbbell me-2"></i>Suplement<span>Store</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-1">
+                    {% if session.user_id %}
+                        {% if session.role == 'admin' %}
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}products"><i class="fas fa-box me-1"></i>Proizvodi</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}categories"><i class="fas fa-tags me-1"></i>Kategorije</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}brands"><i class="fas fa-award me-1"></i>Brendovi</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}users"><i class="fas fa-users me-1"></i>Korisnici</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}orders"><i class="fas fa-shopping-bag me-1"></i>Narudžbine</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}reports"><i class="fas fa-chart-bar me-1"></i>Izveštaji</a></li>
+                        {% elseif session.role == 'manager' %}
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}products"><i class="fas fa-box me-1"></i>Proizvodi</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}orders"><i class="fas fa-shopping-bag me-1"></i>Narudžbine</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}users"><i class="fas fa-users me-1"></i>Korisnici</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}messages"><i class="fas fa-envelope me-1"></i>Poruke</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}products"><i class="fas fa-box me-1"></i>Proizvodi</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}cart"><i class="fas fa-shopping-cart me-1"></i>Korpa</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}orders"><i class="fas fa-shopping-bag me-1"></i>Narudžbine</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ base_url }}messages"><i class="fas fa-envelope me-1"></i>Poruke</a></li>
+                        {% endif %}
+                        <li class="nav-item ms-2">
+                            <span class="nav-link text-warning"><i class="fas fa-user me-1"></i>{{ session.username }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link logout" href="{{ base_url }}auth/logout"><i class="fas fa-sign-out-alt me-1"></i>Odjava</a>
+                        </li>
                     {% else %}
-                        <a class="nav-link" href="{{ base_url }}products">Proizvodi</a>
-                        <a class="nav-link" href="{{ base_url }}cart">Korpa</a>
-                        <a class="nav-link" href="{{ base_url }}orders">Moje narudžbine</a>
-                        <a class="nav-link" href="{{ base_url }}messages">Poruke</a>
+                        <li class="nav-item"><a class="nav-link" href="{{ base_url }}products"><i class="fas fa-box me-1"></i>Proizvodi</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ base_url }}auth/login"><i class="fas fa-sign-in-alt me-1"></i>Prijava</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ base_url }}auth/register"><i class="fas fa-user-plus me-1"></i>Registracija</a></li>
                     {% endif %}
-                    <a class="nav-link" href="{{ base_url }}auth/logout">Odjava</a>
-                {% else %}
-                    <a class="nav-link" href="{{ base_url }}products">Proizvodi</a>
-                    <a class="nav-link" href="{{ base_url }}auth/login">Prijava</a>
-                    <a class="nav-link" href="{{ base_url }}auth/register">Registracija</a>
-                {% endif %}
+                </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <main>
         {% block content %}{% endblock %}
-    </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-dumbbell me-2"></i>SuplementStore</h5>
+                    <p>Vaš pouzdani partner za sportsku ishranu i suplemente. Kvalitetni proizvodi za maksimalne rezultate.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Brzi linkovi</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ base_url }}products"><i class="fas fa-chevron-right me-1"></i>Proizvodi</a></li>
+                        <li><a href="{{ base_url }}auth/register"><i class="fas fa-chevron-right me-1"></i>Registracija</a></li>
+                        <li><a href="{{ base_url }}auth/login"><i class="fas fa-chevron-right me-1"></i>Prijava</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Kontakt</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i>info@suplementstore.rs</li>
+                        <li><i class="fas fa-phone me-2"></i>+381 11 123 4567</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Beograd, Srbija</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SuplementStore. Sva prava zadržana.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>

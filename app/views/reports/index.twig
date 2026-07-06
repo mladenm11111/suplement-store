@@ -1,44 +1,86 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-<h1 class="mb-4">Izveštaji</h1>
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-chart-bar me-3"></i>Izveštaji</h1>
+    </div>
+</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="card mb-4">
-            <div class="card-header bg-dark text-white">
-                <h5 class="mb-0">Narudžbine</h5>
-            </div>
-            <div class="card-body">
-                <p>Ukupno narudžbina: <strong>{{ orders|length }}</strong></p>
-                <a href="{{ base_url }}report/excel?type=orders" class="btn btn-success mb-2 w-100">Export Excel</a>
-                <a href="{{ base_url }}report/pdf?type=orders" class="btn btn-danger w-100">Export PDF</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div style="background: rgba(255,107,0,0.1); padding: 1rem; border-radius: 12px;">
+                            <i class="fas fa-shopping-bag" style="font-size: 2rem; color: var(--primary);"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h5 class="fw-bold mb-0">Narudžbine</h5>
+                            <p class="text-muted mb-0">Ukupno: <strong>{{ orders|length }}</strong></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="{{ base_url }}report/excel?type=orders" class="btn btn-success">
+                            <i class="fas fa-file-excel me-2"></i>Export Excel
+                        </a>
+                        <a href="{{ base_url }}report/pdf?type=orders" class="btn btn-danger">
+                            <i class="fas fa-file-pdf me-2"></i>Export PDF
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card mb-4">
-            <div class="card-header bg-dark text-white">
-                <h5 class="mb-0">Proizvodi</h5>
-            </div>
-            <div class="card-body">
-                <p>Ukupno proizvoda: <strong>{{ products|length }}</strong></p>
-                <a href="{{ base_url }}report/excel?type=products" class="btn btn-success mb-2 w-100">Export Excel</a>
-                <a href="{{ base_url }}report/pdf?type=products" class="btn btn-danger w-100">Export PDF</a>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div style="background: rgba(40,167,69,0.1); padding: 1rem; border-radius: 12px;">
+                            <i class="fas fa-box" style="font-size: 2rem; color: #28a745;"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h5 class="fw-bold mb-0">Proizvodi</h5>
+                            <p class="text-muted mb-0">Ukupno: <strong>{{ products|length }}</strong></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="{{ base_url }}report/excel?type=products" class="btn btn-success">
+                            <i class="fas fa-file-excel me-2"></i>Export Excel
+                        </a>
+                        <a href="{{ base_url }}report/pdf?type=products" class="btn btn-danger">
+                            <i class="fas fa-file-pdf me-2"></i>Export PDF
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card mb-4">
-            <div class="card-header bg-dark text-white">
-                <h5 class="mb-0">Korisnici</h5>
-            </div>
-            <div class="card-body">
-                <p>Ukupno korisnika: <strong>{{ users|length }}</strong></p>
-                <a href="{{ base_url }}report/excel?type=users" class="btn btn-success mb-2 w-100">Export Excel</a>
-                <a href="{{ base_url }}report/pdf?type=users" class="btn btn-danger w-100">Export PDF</a>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div style="background: rgba(0,123,255,0.1); padding: 1rem; border-radius: 12px;">
+                            <i class="fas fa-users" style="font-size: 2rem; color: #007bff;"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h5 class="fw-bold mb-0">Korisnici</h5>
+                            <p class="text-muted mb-0">Ukupno: <strong>{{ users|length }}</strong></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="{{ base_url }}report/excel?type=users" class="btn btn-success">
+                            <i class="fas fa-file-excel me-2"></i>Export Excel
+                        </a>
+                        <a href="{{ base_url }}report/pdf?type=users" class="btn btn-danger">
+                            <i class="fas fa-file-pdf me-2"></i>Export PDF
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

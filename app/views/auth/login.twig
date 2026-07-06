@@ -1,26 +1,36 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-5">
-        <h1 class="mb-4">Prijava</h1>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <div class="card p-4">
+                <div class="text-center mb-4">
+                    <i class="fas fa-dumbbell" style="font-size: 3rem; color: var(--primary);"></i>
+                    <h2 class="mt-2 fw-bold">Dobrodošli nazad</h2>
+                    <p class="text-muted">Prijavite se na vaš nalog</p>
+                </div>
 
-        {% if error %}
-            <div class="alert alert-danger">{{ error }}</div>
-        {% endif %}
+                {% if error %}
+                    <div class="alert alert-danger"><i class="fas fa-exclamation-circle me-2"></i>{{ error }}</div>
+                {% endif %}
 
-        <form method="POST">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" name="email" id="email" class="form-control">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-envelope me-1"></i>Email:</label>
+                        <input type="email" name="email" class="form-control" placeholder="vas@email.com">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label"><i class="fas fa-lock me-1"></i>Lozinka:</label>
+                        <input type="password" name="password" class="form-control" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
+                        <i class="fas fa-sign-in-alt me-2"></i>Prijavi se
+                    </button>
+                    <p class="text-center text-muted">Nemate nalog? <a href="{{ base_url }}auth/register" style="color: var(--primary);">Registrujte se</a></p>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Lozinka:</label>
-                <input type="password" name="password" id="password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">Prijavi se</button>
-            <a href="{{ base_url }}auth/register" class="btn btn-secondary ms-2">Registracija</a>
-        </form>
+        </div>
     </div>
 </div>
 {% endblock %}

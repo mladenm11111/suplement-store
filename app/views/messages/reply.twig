@@ -1,31 +1,44 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <h1 class="mb-4">Odgovori na poruku</h1>
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-reply me-3"></i>Odgovori na poruku</h1>
+    </div>
+</div>
 
-        <div class="card mb-4">
-            <div class="card-body">
-                <p><strong>Korisnik:</strong> {{ message.username }}</p>
-                <p><strong>Naslov:</strong> {{ message.subject }}</p>
-                <p><strong>Poruka:</strong></p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card mb-4 p-4">
+                <h5 class="fw-bold mb-3"><i class="fas fa-envelope me-2"></i>Originalna poruka</h5>
+                <p><i class="fas fa-user me-2 text-muted"></i><strong>Korisnik:</strong> {{ message.username }}</p>
+                <p><i class="fas fa-heading me-2 text-muted"></i><strong>Naslov:</strong> {{ message.subject }}</p>
+                <hr>
                 <p>{{ message.message }}</p>
             </div>
-        </div>
 
-        {% if error %}
-            <div class="alert alert-danger">{{ error }}</div>
-        {% endif %}
+            <div class="card p-4">
+                {% if error %}
+                    <div class="alert alert-danger"><i class="fas fa-exclamation-circle me-2"></i>{{ error }}</div>
+                {% endif %}
 
-        <form method="POST">
-            <div class="mb-3">
-                <label class="form-label">Odgovor:</label>
-                <textarea name="response" class="form-control" rows="5"></textarea>
+                <h5 class="fw-bold mb-3"><i class="fas fa-reply me-2"></i>Vaš odgovor</h5>
+                <form method="POST">
+                    <div class="mb-4">
+                        <textarea name="response" class="form-control" rows="6" placeholder="Unesite vaš odgovor..."></textarea>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-paper-plane me-2"></i>Pošalji odgovor
+                        </button>
+                        <a href="{{ base_url }}messages" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>Otkaži
+                        </a>
+                    </div>
+                </form>
             </div>
-            <button type="submit" class="btn btn-warning">Pošalji odgovor</button>
-            <a href="{{ base_url }}messages" class="btn btn-secondary ms-2">Otkaži</a>
-        </form>
+        </div>
     </div>
 </div>
 {% endblock %}

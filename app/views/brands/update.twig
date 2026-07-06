@@ -1,26 +1,40 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <h1 class="mb-4">Izmeni brend</h1>
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-edit me-3"></i>Izmeni brend</h1>
+    </div>
+</div>
 
-        {% if error %}
-            <div class="alert alert-danger">{{ error }}</div>
-        {% endif %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4">
+                {% if error %}
+                    <div class="alert alert-danger"><i class="fas fa-exclamation-circle me-2"></i>{{ error }}</div>
+                {% endif %}
 
-        <form method="POST">
-            <div class="mb-3">
-                <label class="form-label">Naziv:</label>
-                <input type="text" name="name" class="form-control" value="{{ brand.name }}">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-award me-1"></i>Naziv:</label>
+                        <input type="text" name="name" class="form-control" value="{{ brand.name }}">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label"><i class="fas fa-align-left me-1"></i>Opis:</label>
+                        <textarea name="description" class="form-control" rows="3">{{ brand.description }}</textarea>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-2"></i>Sačuvaj
+                        </button>
+                        <a href="{{ base_url }}brands" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>Otkaži
+                        </a>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Opis:</label>
-                <textarea name="description" class="form-control" rows="3">{{ brand.description }}</textarea>
-            </div>
-            <button type="submit" class="btn btn-warning">Izmeni</button>
-            <a href="{{ base_url }}brands" class="btn btn-secondary ms-2">Otkaži</a>
-        </form>
+        </div>
     </div>
 </div>
 {% endblock %}

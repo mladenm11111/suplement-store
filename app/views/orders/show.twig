@@ -1,40 +1,66 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-<h1 class="mb-4">Detalji narudžbine #{{ order.id }}</h1>
-
-<div class="card mb-4">
-    <div class="card-body">
-        {% if session.role == 'admin' or session.role == 'manager' %}
-            <p><strong>Korisnik:</strong> {{ order.username }} ({{ order.email }})</p>
-        {% endif %}
-        <p><strong>Status:</strong> {{ order.status }}</p>
-        <p><strong>Datum:</strong> {{ order.created_at }}</p>
-        <p><strong>Ukupno:</strong> {{ order.total_price }} RSD</p>
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-shopping-bag me-3"></i>Narudžbina #{{ order.id }}</h1>
     </div>
 </div>
 
-<h3>Stavke narudžbine</h3>
-<table class="table table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>Proizvod</th>
-            <th>Cena</th>
-            <th>Količina</th>
-            <th>Ukupno</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in items %}
-        <tr>
-            <td>{{ item.product_name }}</td>
-            <td>{{ item.price }} RSD</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.price * item.quantity }} RSD</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<a href="{{ base_url }}orders" class="btn btn-secondary">Nazad</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card p-4">
+                <h5 class="fw-bold mb-3"><i class="fas fa-info-circle me-2"></i>Detalji</h5>
+                {% if session.role == 'admin' or session.role == 'manager' %}
+                    <p><i class="fas fa-user me-2 text-muted"></i><strong>Korisnik:</strong> {{ order.username }}</p>
+                    <p><i class="fas fa-envelope me-2 text-muted"></i><strong>Email:</strong> {{ order.email }}</p>
+                {% endif %}
+                <p><i class="fas fa-calendar me-2 text-muted"></i><strong>Datum:</strong> {{ order.created_at }}</p>
+                <p>
+                    <i class="fas fa-tag me-2 text-muted"></i><strong>Status:</strong>
+                    <span class="badge 
+                        {% if order.status == 'pending' %}bg-warning text-dark
+                        {% elseif order.status == 'processing' %}bg-info
+                        {% elseif order.status == 'completed' %}bg-success
+                        {% else %}bg-danger{% endif %}">
+                        {{ order.status }}
+                    </span>
+                </p>
+                <hr>
+                <p class="price-tag"><i class="fas fa-coins me-2"></i>{{ order.total_price }} RSD</p>
+            </div>
+        </div>
+        <div class="col-md-8 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-list me-2"></i>Stavke narudžbine</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Proizvod</th>
+                                <th>Cena</th>
+                                <th>Količina</th>
+                                <th>Ukupno</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                            <tr>
+                                <td>{{ item.product_name }}</td>
+                                <td>{{ item.price }} RSD</td>
+                                <td>{{ item.quantity }}</td>
+                                <td><strong>{{ item.price * item.quantity }} RSD</strong></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{{ base_url }}orders" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Nazad
+    </a>
+</div>
 {% endblock %}
