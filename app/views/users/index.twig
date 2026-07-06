@@ -1,0 +1,45 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<h1 class="mb-4">Korisnici</h1>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Korisničko ime</th>
+            <th>Email</th>
+            <th>Rola</th>
+            <th>Datum registracije</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <span class="badge 
+                    {% if user.role == 'admin' %}bg-danger
+                    {% elseif user.role == 'manager' %}bg-warning
+                    {% else %}bg-primary{% endif %}">
+                    {{ user.role }}
+                </span>
+            </td>
+            <td>{{ user.created_at }}</td>
+            <td class="d-flex gap-2">
+                <a href="{{ base_url }}user/id/{{ user.id }}" class="btn btn-info btn-sm">Detalji</a>
+                <a href="{{ base_url }}user/update/{{ user.id }}" class="btn btn-warning btn-sm">Izmeni</a>
+                <form method="POST" action="{{ base_url }}user/delete/{{ user.id }}" onsubmit="return confirm('Da li ste sigurni?')">
+                    <button type="submit" class="btn btn-danger btn-sm">Obriši</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+            <tr><td colspan="6">Nema korisnika.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

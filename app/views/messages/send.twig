@@ -1,0 +1,26 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="mb-4">Pošalji poruku</h1>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Naslov:</label>
+                <input type="text" name="subject" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Poruka:</label>
+                <textarea name="message" class="form-control" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Pošalji</button>
+            <a href="{{ base_url }}messages" class="btn btn-secondary ms-2">Otkaži</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
