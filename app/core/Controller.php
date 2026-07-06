@@ -1,6 +1,6 @@
 <?php
 
-require_once '../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 class Controller
 {
@@ -8,7 +8,7 @@ class Controller
 
     public function __construct()
     {
-        $loader = new \Twig\Loader\FilesystemLoader('../app/views');
+        $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../../app/views');
         $this->twig = new \Twig\Environment($loader, [
             'cache' => false,
             'debug' => true,
