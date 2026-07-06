@@ -54,7 +54,6 @@ class ReportController extends Controller
             }
 
             $filename = 'narudzbine.xlsx';
-
         } elseif ($type === 'products') {
             $this->log('Admin exportovao izvestaj proizvoda u Excel');
             $productModel = $this->loadModel('Product');
@@ -77,7 +76,6 @@ class ReportController extends Controller
             }
 
             $filename = 'proizvodi.xlsx';
-
         } elseif ($type === 'users') {
             $this->log('Admin exportovao izvestaj korisnika u Excel');
             $userModel = $this->loadModel('User');
@@ -142,7 +140,6 @@ class ReportController extends Controller
             }
             $html .= '</tbody></table>';
             $filename = 'narudzbine.pdf';
-
         } elseif ($type === 'products') {
             $this->log('Admin exportovao izvestaj proizvoda u PDF');
             $productModel = $this->loadModel('Product');
@@ -164,7 +161,6 @@ class ReportController extends Controller
             }
             $html .= '</tbody></table>';
             $filename = 'proizvodi.pdf';
-
         } elseif ($type === 'users') {
             $this->log('Admin exportovao izvestaj korisnika u PDF');
             $userModel = $this->loadModel('User');
